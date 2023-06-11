@@ -4,8 +4,10 @@ public class PlayerState
 {
     protected PlayerStateMachine _stateMachine;
     protected Player _player;
+    protected Rigidbody2D _playerRb;
 
     private string _animatorBoolName;
+    protected float _inputX;
 
     public PlayerState(Player player, PlayerStateMachine stateMachine, string animatorBoolName)
     {
@@ -16,16 +18,19 @@ public class PlayerState
 
     public virtual void Enter()
     {
-        Debug.Log("Enter: " + _animatorBoolName);
+        _player.PlayerAnimator.SetBool(_animatorBoolName, true);
+        _playerRb = _player.PlayerRb;
     }
 
     public virtual void Update()
     {
-        Debug.Log("Currently in: " + _animatorBoolName);
+        _inputX = Input.GetAxisRaw("Horizontal");
+        _player.PlayerAnimator.SetFloat("yVelocity", _playerRb.velocity.y);
+
     }
 
     public virtual void Exit()
     {
-        Debug.Log("Exit: " + _animatorBoolName);
+        _player.PlayerAnimator.SetBool(_animatorBoolName, false);
     }
 }
