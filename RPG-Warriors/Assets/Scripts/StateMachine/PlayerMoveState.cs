@@ -21,7 +21,7 @@ public class PlayerMoveState : PlayerGroundedState
 
         _player.SetVelocity(_inputX * _player.MovementSpeed, _playerRb.velocity.y);
 
-        if (_inputX == 0)
+        if (_inputX == 0 || _player.IsWallDetected())
             _stateMachine.ChangeState(_player.IdleState);
     }
 }
