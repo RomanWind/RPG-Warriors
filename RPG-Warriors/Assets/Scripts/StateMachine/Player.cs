@@ -1,9 +1,14 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    #region AttackDetails
+    [SerializeField] private float[] _attackMovement;
+    public float[] AttackMovement { get; private set; }
+
+    #endregion
+
     #region Movement
     public float MovementSpeed { get; private set; } = 9f;
     public float JumpForce { get; private set; } = 13f;
@@ -28,6 +33,7 @@ public class Player : MonoBehaviour
 
     #endregion
 
+    public bool IsBusy { get; private set; }
     public int FacingDirection { get; private set; } = 1;
     private bool _facingRight = true;
 
@@ -47,6 +53,8 @@ public class Player : MonoBehaviour
     public PlayerWallSlideState WallSlideState { get; private set; }
     public PlayerWallJumpState WallJumpState { get; private set; }
     public PlayerDashState DashState { get; private set; }
+    //Attack states
+    public PlayerPrimaryAttackState PrimaryAttack { get; private set; }
 
     #endregion
 
@@ -63,11 +71,18 @@ public class Player : MonoBehaviour
         DashState = new PlayerDashState(this, StateMachine, "Dash");
         WallSlideState = new PlayerWallSlideState(this, StateMachine, "WallSlide");
         WallJumpState = new PlayerWallJumpState(this, StateMachine, "Jump");
+        PrimaryAttack = new PlayerPrimaryAttackState(this, StateMachine, "Attack");
     }
 
     private void Start()
     {
         StateMachine.Initialize(IdleState);
+
+        AttackMovement = new float[10];
+        for(int i = 0; i < _attackMovement.Length; i++)
+        {
+            AttackMovement[i] = _attackMovement[i];
+        }
     }
 
     private void Update()
@@ -75,6 +90,15 @@ public class Player : MonoBehaviour
         StateMachine._currentState.Update();
 
         CheckForDashInput();
+    }
+
+    public IEnumerator BusyTimer(float _seconds)
+    {
+        IsBusy = true;
+
+        yield return new WaitForSeconds(_seconds);
+
+        IsBusy = false;
     }
 
     public void SetVelocity(float xVelocity, float yVelocity)
@@ -85,12 +109,7 @@ public class Player : MonoBehaviour
 
     public bool IsGroundDetected() => Physics2D.Raycast(_groundCheck.position, Vector2.down, _groundCheckDistance, _groundLayer);
     public bool IsWallDetected() => Physics2D.Raycast(_wallCheck.position, Vector2.right * FacingDirection, _wallCheckDistance, _groundLayer);
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawLine(_groundCheck.position, new Vector3(_groundCheck.position.x, _groundCheck.position.y - _groundCheckDistance));
-        Gizmos.DrawLine(_wallCheck.position, new Vector3(_wallCheck.position.x + _wallCheckDistance, _wallCheck.position.y));
-    }
+    public void AnimationTrigger() => StateMachine._currentState.AnimationFinishTrigger();
 
     public void Flip()
     {
@@ -126,5 +145,11 @@ public class Player : MonoBehaviour
 
             StateMachine.ChangeState(DashState);
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(_groundCheck.position, new Vector3(_groundCheck.position.x, _groundCheck.position.y - _groundCheckDistance));
+        Gizmos.DrawLine(_wallCheck.position, new Vector3(_wallCheck.position.x + _wallCheckDistance, _wallCheck.position.y));
     }
 }

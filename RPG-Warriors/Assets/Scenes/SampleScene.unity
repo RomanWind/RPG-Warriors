@@ -295,6 +295,7 @@ GameObject:
   - component: {fileID: 352168208}
   - component: {fileID: 352168210}
   - component: {fileID: 352168209}
+  - component: {fileID: 352168211}
   m_Layer: 0
   m_Name: PlayerVisual
   m_TagString: Untagged
@@ -389,6 +390,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &352168211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 352168207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27e55f1186945b342b7471b9a3399e44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player: {fileID: 1428302757}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -961,6 +975,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1ea93f06c1b8934aabc64701a9945dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _attackMovement:
+  - 2
+  - 1
+  - 3
   _groundCheck: {fileID: 252001507}
   _groundCheckDistance: 0.25
   _wallCheck: {fileID: 1789988019}

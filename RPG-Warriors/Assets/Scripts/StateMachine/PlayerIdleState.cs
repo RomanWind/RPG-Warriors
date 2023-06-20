@@ -25,7 +25,7 @@ public class PlayerIdleState : PlayerGroundedState
         if (_inputX == _player.FacingDirection && _player.IsWallDetected())
             return;
 
-        if (_inputX != 0)
+        if (_inputX != 0 && !_player.IsBusy)
             _stateMachine.ChangeState(_player.MoveState);
     }
 }
