@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     #endregion
 
     #region Movement
-    public float MovementSpeed { get; private set; } = 9f;
+    public float MovementSpeed { get; private set; } = 15f;
     public float JumpForce { get; private set; } = 13f;
 
     #endregion
