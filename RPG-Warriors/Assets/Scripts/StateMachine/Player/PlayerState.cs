@@ -22,8 +22,8 @@ public class PlayerState
 
     public virtual void Enter()
     {
-        _player.PlayerAnimator.SetBool(_animatorBoolName, true);
-        _playerRb = _player.PlayerRb;
+        _player.EntityAnimator.SetBool(_animatorBoolName, true);
+        _playerRb = _player.EntityRigidbody;
         _triggerCalled = false;
     }
 
@@ -33,12 +33,12 @@ public class PlayerState
 
         _inputX = Input.GetAxisRaw("Horizontal");
         _inputY = Input.GetAxisRaw("Vertical");
-        _player.PlayerAnimator.SetFloat("yVelocity", _playerRb.velocity.y);
+        _player.EntityAnimator.SetFloat("yVelocity", _playerRb.velocity.y);
     }
 
     public virtual void Exit()
     {
-        _player.PlayerAnimator.SetBool(_animatorBoolName, false);
+        _player.EntityAnimator.SetBool(_animatorBoolName, false);
     }
 
     public virtual void AnimationFinishTrigger()
