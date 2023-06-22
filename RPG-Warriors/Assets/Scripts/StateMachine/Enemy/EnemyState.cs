@@ -5,15 +5,15 @@ public class EnemyState
     private string _animatorBoolName;
 
     protected EnemyStateMachine _enemyStateMachine;
-    protected Enemy _enemy;
+    protected Enemy _enemyBase;
 
     protected bool _triggerCalled;
     protected float _stateTimer;
 
-    public EnemyState(Enemy enemy, EnemyStateMachine enemyStateMachine, string animatorBoolName)
+    public EnemyState(Enemy enemyBase, EnemyStateMachine enemyStateMachine, string animatorBoolName)
     {
         _enemyStateMachine = enemyStateMachine;
-        _enemy = enemy;
+        _enemyBase = enemyBase;
         _animatorBoolName = animatorBoolName;
     }
 
@@ -25,11 +25,11 @@ public class EnemyState
     public virtual void Enter()
     {
         _triggerCalled = false;
-        _enemy.EnemyAnimator.SetBool(_animatorBoolName, true);
+        _enemyBase.EnemyAnimator.SetBool(_animatorBoolName, true);
     }
 
     public virtual void Exit()
     {
-        _enemy.EnemyAnimator.SetBool(_animatorBoolName, false);
+        _enemyBase.EnemyAnimator.SetBool(_animatorBoolName, false);
     }
 }

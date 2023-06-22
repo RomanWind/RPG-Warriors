@@ -9,7 +9,7 @@ public class Player : Entity
     #endregion
 
     #region Movement
-    public float MovementSpeed { get; private set; } = 15f;
+    public float MovementSpeed { get; private set; } = 9f;
     public float JumpForce { get; private set; } = 13f;
     #endregion
 
