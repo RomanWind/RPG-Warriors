@@ -3,23 +3,27 @@ using UnityEngine;
 public class EnemySkeleton : Enemy
 {
     #region States
-    public SkeletonIdleState SkeletonIdleSt { get; private set; }
-    public SkeletonMoveState SkeletonMoveSt { get; private set; }
+    public SkeletonIdleState IdleState { get; private set; }
+    public SkeletonMoveState MoveState { get; private set; }
+    public SkeletonBattleState BattleState { get; private set; }
+    public SkeletonAttackState AttackState { get; private set; }
     #endregion
 
     protected override void Awake()
     {
         base.Awake();
 
-        SkeletonIdleSt = new SkeletonIdleState(this, EnemyStMachine, "Idle", this);
-        SkeletonMoveSt = new SkeletonMoveState(this, EnemyStMachine, "Move", this);
+        IdleState = new SkeletonIdleState(this, EnemyStMachine, "Idle", this);
+        MoveState = new SkeletonMoveState(this, EnemyStMachine, "Move", this);
+        BattleState = new SkeletonBattleState(this, EnemyStMachine, "Move", this);
+        AttackState = new SkeletonAttackState(this, EnemyStMachine, "Attack", this);
     }
 
     protected override void Start()
     {
         base.Start();
 
-        EnemyStMachine.Initialize(SkeletonIdleSt);
+        EnemyStMachine.Initialize(IdleState);
     }
 
     protected override void Update()

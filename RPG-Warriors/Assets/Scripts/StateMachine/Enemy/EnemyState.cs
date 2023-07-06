@@ -6,6 +6,7 @@ public class EnemyState
 
     protected EnemyStateMachine _enemyStateMachine;
     protected Enemy _enemyBase;
+    protected Rigidbody2D _enemyRigidbody;
 
     protected bool _triggerCalled;
     protected float _stateTimer;
@@ -26,10 +27,16 @@ public class EnemyState
     {
         _triggerCalled = false;
         _enemyBase.EnemyAnimator.SetBool(_animatorBoolName, true);
+        _enemyRigidbody = _enemyBase.EnemyRigidbody;
     }
 
     public virtual void Exit()
     {
         _enemyBase.EnemyAnimator.SetBool(_animatorBoolName, false);
+    }
+
+    public virtual void AnimationFinishTrigger()
+    {
+        _triggerCalled = true;
     }
 }
