@@ -204,7 +204,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 252001507}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -238,7 +238,7 @@ GameObject:
   - component: {fileID: 352168210}
   - component: {fileID: 352168209}
   - component: {fileID: 352168211}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PlayerVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -721,6 +721,7 @@ GameObject:
   m_Component:
   - component: {fileID: 986286796}
   - component: {fileID: 986286797}
+  - component: {fileID: 986286800}
   - component: {fileID: 986286799}
   - component: {fileID: 986286798}
   m_Layer: 7
@@ -745,6 +746,7 @@ Transform:
   - {fileID: 1324121363}
   - {fileID: 1698456963}
   - {fileID: 1657197641}
+  - {fileID: 1712338223}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -767,12 +769,16 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  _attackCheck: {fileID: 1712338223}
+  _attackCheckRadius: 0.8
+  _knockbackDirection: {x: 7, y: 14}
   _whatIsPlayer:
     serializedVersion: 2
     m_Bits: 64
   _movementSpeed: 3
   _idleTime: 1
   _battleTime: 4
+  _agroDistance: 7
   _attackDistance: 1.4
   _attackCooldown: 0.5
 --- !u!61 &986286798
@@ -835,7 +841,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 3.5
+  m_GravityScale: 15
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -847,6 +853,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &986286800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 986286795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3711eb65a97f8944ac130e47c86a827, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hitMaterial: {fileID: 2100000, guid: e923d34119d05af45b87564445ef2355, type: 2}
 --- !u!1 &1003828424
 GameObject:
   m_ObjectHideFlags: 0
@@ -1064,7 +1083,7 @@ GameObject:
   - component: {fileID: 1324121364}
   - component: {fileID: 1324121365}
   - component: {fileID: 1324121366}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SkeletonVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5877,11 +5896,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1428302758}
   - component: {fileID: 1428302757}
+  - component: {fileID: 1428302761}
   - component: {fileID: 1428302760}
   - component: {fileID: 1428302759}
   m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5905,6 +5925,9 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  _attackCheck: {fileID: 1930943192}
+  _attackCheckRadius: 0.8
+  _knockbackDirection: {x: 0, y: 0}
   _attackMovement:
   - 2
   - 1
@@ -5917,13 +5940,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1428302756}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.98, y: -9.91, z: 0}
+  m_LocalPosition: {x: -13.98, y: -10.638, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 352168208}
   - {fileID: 252001507}
   - {fileID: 1789988019}
+  - {fileID: 1930943192}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5989,6 +6013,19 @@ CapsuleCollider2D:
   m_Offset: {x: -0.09320262, y: -0.27061188}
   m_Size: {x: 0.816889, y: 2.0817988}
   m_Direction: 0
+--- !u!114 &1428302761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428302756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3711eb65a97f8944ac130e47c86a827, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hitMaterial: {fileID: 2100000, guid: e923d34119d05af45b87564445ef2355, type: 2}
 --- !u!1 &1609556801
 GameObject:
   m_ObjectHideFlags: 0
@@ -6082,7 +6119,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1657197641}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6507,7 +6544,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1698456963}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6523,6 +6560,37 @@ Transform:
   m_GameObject: {fileID: 1698456962}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.593, y: -1.257, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 986286796}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1712338222
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1712338223}
+  m_Layer: 7
+  m_Name: AttackCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1712338223
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1712338222}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.547, y: -0.31, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6622,7 +6690,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1789988019}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6846,3 +6914,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _camera: {fileID: 519420028}
   _parallaxEffect: 0.9
+--- !u!1 &1930943191
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1930943192}
+  m_Layer: 6
+  m_Name: AttackCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1930943192
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1930943191}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.279, y: -0.31, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1428302758}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

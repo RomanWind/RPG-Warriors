@@ -14,6 +14,8 @@ public class PlayerPrimaryAttackState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        
+        _inputX = 0; //sometimes player use _inputX from previous sequence of attacks and mess up attack direction so we clear _inputX to fix bug with wrong attack direction
 
         if (_comboCounter > 2 || Time.time >= _lastAttackTime + _comboResetTime)
             _comboCounter = 0;
