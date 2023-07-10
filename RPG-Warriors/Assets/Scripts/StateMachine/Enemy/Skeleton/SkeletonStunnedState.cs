@@ -24,13 +24,8 @@ public class SkeletonStunnedState : EnemyState
     {
         base.Update();
 
-        Debug.Log(_stateTimer);
-
         if (_stateTimer < 0)
-        {
-            Debug.Log("Going to idle");
             _enemyStateMachine.ChangeState(_skeleton.IdleState);
-        }
     }
 
     public override void Exit()

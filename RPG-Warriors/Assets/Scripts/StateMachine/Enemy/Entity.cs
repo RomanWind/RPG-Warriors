@@ -67,7 +67,6 @@ public class Entity : MonoBehaviour
     #region Combat
     public virtual void Damage()
     {
-        Debug.Log(gameObject.name + " was damaged");
         Fx.StartCoroutine("FlashFx");
         StartCoroutine(HitKnockback());
     }
