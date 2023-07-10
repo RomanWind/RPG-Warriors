@@ -14,6 +14,13 @@ public class Enemy : Entity
     [SerializeField] private float _attackCooldown = 1f;
     [HideInInspector] private float _lastTimeAttacked;
 
+    [Header("Stunned Info")]
+    [SerializeField] private float _stunDuration = 1f;
+    [SerializeField] private Vector2 _stunDirection = new Vector2(7,14);
+    [SerializeField] protected GameObject _counterImage;
+    protected bool _canBeStunned;
+
+
     public Rigidbody2D EnemyRigidbody { get; private set; }
     public Animator EnemyAnimator { get; private set; }
 
@@ -37,9 +44,10 @@ public class Enemy : Entity
     protected override void Update()
     {
         base.Update();
-        EnemyStMachine._currentEnemyState.Update();
+        EnemyStMachine._currentEnemyState.Update();       
     }
 
+    #region Access to data from private variables
     public float GetMovementSpeed() => _movementSpeed;
     public float GetIdleTime() => _idleTime;
     public float GetBattleTime() => _battleTime;
@@ -47,10 +55,36 @@ public class Enemy : Entity
     public float GetAttackDistance() => _attackDistance;
     public float GetAttackCooldown() => _attackCooldown;
     public float GetLastTimeAttacked() => _lastTimeAttacked;
+    public float GetStunDuration() => _stunDuration;
+    public Vector2 GetStunDirection() => _stunDirection;
+    #endregion
 
     public void SetLastAttackTime(float lastTimeAttacked)
     {
         _lastTimeAttacked = lastTimeAttacked;
+    }
+
+    public virtual void OpenCounterAttackWindow()
+    {
+        _canBeStunned = true;
+        _counterImage.SetActive(true);
+    }
+
+    public virtual void CloseCounterAttackWindow()
+    {
+        _canBeStunned = false;
+        _counterImage.SetActive(false);
+    }
+
+    public virtual bool CanBeStunned()
+    {
+        if(_canBeStunned)
+        {
+            CloseCounterAttackWindow();
+            return true;
+        }
+
+        return false;
     }
 
     public virtual void AnimationFinishTrigger() => EnemyStMachine._currentEnemyState.AnimationFinishTrigger();

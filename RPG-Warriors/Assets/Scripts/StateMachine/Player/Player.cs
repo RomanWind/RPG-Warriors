@@ -4,8 +4,10 @@ using UnityEngine;
 public class Player : Entity
 {
     #region AttackDetails
+    [Header("Attack Details")]
     [SerializeField] private float[] _attackMovement;
     public float[] AttackMovement { get; private set; }
+    public float CounterAttackDuration { get; private set; } = 0.2f;
     #endregion
 
     #region Movement
@@ -17,7 +19,6 @@ public class Player : Entity
     public float DashSpeed { get; private set; } = 25f;
     public float DashDuration { get; private set; } = 0.25f;
     public float DashDirection { get; private set; } = 1;
-
     private float _dashCooldown = 1.25f;
     private float _dashUsageTimer;
     #endregion
@@ -34,6 +35,7 @@ public class Player : Entity
     public PlayerDashState DashState { get; private set; }
     //Attack states
     public PlayerPrimaryAttackState PrimaryAttack { get; private set; }
+    public PlayerCounterAttackState CounterAttack { get; private set; }
     #endregion
 
     public bool IsBusy { get; private set; }
@@ -52,6 +54,7 @@ public class Player : Entity
         WallSlideState = new PlayerWallSlideState(this, StateMachine, "WallSlide");
         WallJumpState = new PlayerWallJumpState(this, StateMachine, "Jump");
         PrimaryAttack = new PlayerPrimaryAttackState(this, StateMachine, "Attack");
+        CounterAttack = new PlayerCounterAttackState(this, StateMachine, "CounterAttack");
     }
 
     protected override void Start()
