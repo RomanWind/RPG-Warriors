@@ -6,6 +6,7 @@ public class SkillManager : MonoBehaviour
 
     #region skills
     public Dash _dash;
+    public Clone _clone;
     #endregion
 
     private void Awake()
@@ -19,5 +20,6 @@ public class SkillManager : MonoBehaviour
     private void Start()
     {
         _dash = GetComponent<Dash>();
+        _clone = GetComponent<Clone>();
     }
 }
