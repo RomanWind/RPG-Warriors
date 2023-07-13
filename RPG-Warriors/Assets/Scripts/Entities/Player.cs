@@ -34,9 +34,13 @@ public class Player : Entity
     //Attack states
     public PlayerPrimaryAttackState PrimaryAttack { get; private set; }
     public PlayerCounterAttackState CounterAttack { get; private set; }
+    //Skill states
+    public PlayerAimSwordState AimSwordState { get; private set; }
+    public PlayerCatchSwordState CatchSwordState { get; private set; }
     #endregion
 
     public bool IsBusy { get; private set; }
+    public GameObject Sword { get; private set; }
 
     protected override void Awake()
     {
@@ -53,6 +57,8 @@ public class Player : Entity
         WallJumpState = new PlayerWallJumpState(this, StateMachine, "Jump");
         PrimaryAttack = new PlayerPrimaryAttackState(this, StateMachine, "Attack");
         CounterAttack = new PlayerCounterAttackState(this, StateMachine, "CounterAttack");
+        AimSwordState = new PlayerAimSwordState(this, StateMachine, "AimSword");
+        CatchSwordState = new PlayerCatchSwordState(this, StateMachine,"CatchSword");
     }
 
     protected override void Start()
@@ -75,6 +81,15 @@ public class Player : Entity
         CheckForDashInput();
     }
 
+    public void AssignNewSword(GameObject newSword)
+    {
+        Sword = newSword;
+    }
+    public void ClearSword()
+    {
+        Destroy(Sword);
+    }
+
     public IEnumerator BusyTimer(float _seconds)
     {
         IsBusy = true;
@@ -91,7 +106,7 @@ public class Player : Entity
         if (IsWallDetected())
             return;
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && SkillManager.instance._dash.CanUseSkill())
+        if (Input.GetKeyDown(KeyCode.LeftShift) && SkillManager.instance.DashSkill.CanUseSkill())
         {
             DashDirection = Input.GetAxisRaw("Horizontal");
             if (DashDirection == 0)

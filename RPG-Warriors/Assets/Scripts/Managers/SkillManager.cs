@@ -4,9 +4,10 @@ public class SkillManager : MonoBehaviour
 {
     public static SkillManager instance;
 
-    #region skills
-    public Dash _dash;
-    public Clone _clone;
+    #region Skills
+    public Dash DashSkill { get; private set; }
+    public Clone CloneSkill { get; private set; }
+    public SwordThrow SwordThrowSkill { get; private set; }
     #endregion
 
     private void Awake()
@@ -19,7 +20,8 @@ public class SkillManager : MonoBehaviour
 
     private void Start()
     {
-        _dash = GetComponent<Dash>();
-        _clone = GetComponent<Clone>();
+        DashSkill = GetComponent<Dash>();
+        CloneSkill = GetComponent<Clone>();
+        SwordThrowSkill = GetComponent<SwordThrow>();
     }
 }

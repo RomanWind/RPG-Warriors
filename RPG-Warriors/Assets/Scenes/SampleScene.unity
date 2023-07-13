@@ -123,6 +123,37 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &52178431
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 52178432}
+  m_Layer: 6
+  m_Name: AimDotParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &52178432
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52178431}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1428302758}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &238497122
 GameObject:
   m_ObjectHideFlags: 0
@@ -1044,6 +1075,7 @@ GameObject:
   - component: {fileID: 1077203211}
   - component: {fileID: 1077203212}
   - component: {fileID: 1077203213}
+  - component: {fileID: 1077203214}
   m_Layer: 0
   m_Name: Skill Manager
   m_TagString: Untagged
@@ -1078,8 +1110,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 714b10f44b7f08b47ae2769120390a07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dash: {fileID: 0}
-  _clone: {fileID: 0}
 --- !u!114 &1077203212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1109,6 +1139,26 @@ MonoBehaviour:
   _cloneDuration: 1
   _clonePrefab: {fileID: 8793493837182232107, guid: f08298bddc900fc4eaeb71dc95be2873, type: 3}
   canAttack: 1
+--- !u!114 &1077203214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1077203209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3474e1b063596c4438a491c7b854be01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cooldown: 0
+  _swordPrefab: {fileID: 6462184656645353468, guid: 0db4e2b65491be24db73215230b353b1, type: 3}
+  _launchForce: {x: 35, y: 25}
+  _swordGravity: 4.5
+  _dotPrefab: {fileID: 615729372351968287, guid: e78c68975687b7d4991b177829f4fa3c, type: 3}
+  _numberOfDots: 20
+  _spaceBetweenDots: 0.07
+  _dotsParent: {fileID: 52178432}
 --- !u!1 &1080528690
 GameObject:
   m_ObjectHideFlags: 3
@@ -6140,6 +6190,7 @@ Transform:
   - {fileID: 252001507}
   - {fileID: 1789988019}
   - {fileID: 1930943192}
+  - {fileID: 52178432}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
