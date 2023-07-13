@@ -18,6 +18,12 @@ public class PlayerAimSwordState : PlayerState
 
         if (Input.GetKeyUp(KeyCode.Mouse1))
             _stateMachine.ChangeState(_player.IdleState);
+
+        Vector2 aimMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (_player.transform.position.x > aimMousePosition.x && _player.FacingDirection == 1)
+            _player.Flip();
+        else if(_player.transform.position.x < aimMousePosition.x && _player.FacingDirection == -1)
+            _player.Flip();
     }
 
     public override void Exit()

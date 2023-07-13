@@ -20,7 +20,7 @@ public class PlayerGroundedState : PlayerState
     {
         base.Update();
 
-        if (Input.GetKey(KeyCode.Mouse1) && Unarmed())
+        if (Input.GetKey(KeyCode.Mouse1) && Unarmed() && _stateMachine._currentState != _player.MoveState)
             _stateMachine.ChangeState(_player.AimSwordState);
 
         if (Input.GetKey(KeyCode.Q))
