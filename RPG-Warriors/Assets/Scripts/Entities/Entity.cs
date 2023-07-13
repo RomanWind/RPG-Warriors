@@ -128,4 +128,9 @@ public class Entity : MonoBehaviour
 
         EntityRigidbody.velocity = Vector2.zero;
     }
+
+    public void ModifyXVelocity(float xVelocity)
+    {
+        EntityRigidbody.velocity = new Vector2(xVelocity, EntityRigidbody.velocity.y);
+    }
 }

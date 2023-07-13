@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SwordThrowSkillController : MonoBehaviour
 {
-    [SerializeField] private float _returnSpeed = 12f;
+    [SerializeField] private float _returnSpeed = 30f;
     private Animator _swordAnimator;
     private Rigidbody2D _swordRigidbody;
     private CircleCollider2D _swordCollider;
@@ -28,7 +28,7 @@ public class SwordThrowSkillController : MonoBehaviour
         {
             transform.position = Vector2.MoveTowards(transform.position, _player.transform.position, _returnSpeed * Time.deltaTime);
             if(Vector2.Distance(transform.position, _player.transform.position) < _swordDissapearDistance)
-                _player.ClearSword();
+                _player.CatchTheSword();
         }
     }
 
@@ -42,13 +42,16 @@ public class SwordThrowSkillController : MonoBehaviour
 
     public void ReturnSword()
     {
-        _swordRigidbody.isKinematic = false;
+        _swordRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
         transform.parent = null;
         _isReturning = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (_isReturning)
+            return;
+
         _swordAnimator.SetBool("Rotation", false);
         _canRotate = false;
         _swordCollider.enabled = false;
