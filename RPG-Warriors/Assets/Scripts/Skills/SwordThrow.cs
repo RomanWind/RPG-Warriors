@@ -1,8 +1,33 @@
+using System;
 using Unity.Mathematics;
 using UnityEngine;
 
+public enum SwordType
+{
+    Regular,
+    Bounce,
+    Pierce,
+    Spin
+}
+
 public class SwordThrow : Skill
 {
+    public SwordType _swordType = SwordType.Regular;
+
+    [Header("BounceInfo")]
+    [SerializeField] private int _bouncesAmount;
+    [SerializeField] private float _bounceGravity;
+
+    [Header("Pierce Info")]
+    [SerializeField] private int _piercesAmount;
+    [SerializeField] private float _pierceGravity;
+
+    [Header("Spin Info")]
+    [SerializeField] private float _maxTravelDistance = 7f;
+    [SerializeField] private float _spinDuration = 2f;
+    [SerializeField] private float _spinGravity = 1f;
+    [SerializeField] private float _hitCooldown = 0.25f;
+
     [Header("Skill Info")]
     [SerializeField] private GameObject _swordPrefab;
     [SerializeField] private Vector2 _launchForce;
@@ -22,6 +47,23 @@ public class SwordThrow : Skill
         base.Start();
 
         GenerateDots();
+        SetupGravity();
+    }
+
+    private void SetupGravity()
+    {
+        switch(_swordType)
+        {
+            case SwordType.Bounce:
+                _swordGravity = _bounceGravity;
+            break;
+            case SwordType.Pierce:
+                _swordGravity = _pierceGravity;
+            break;
+            case SwordType.Spin:
+                _swordGravity = _spinGravity;
+            break;
+        }
     }
 
     protected override void Update()
@@ -43,11 +85,25 @@ public class SwordThrow : Skill
         GameObject newSword = Instantiate(_swordPrefab, _player.transform.position, _player.transform.rotation);
         SwordThrowSkillController newSwordScript = newSword.GetComponent<SwordThrowSkillController>();
 
+        switch(_swordType)
+        {
+            case SwordType.Bounce:
+                newSwordScript.SetupBounce(true, _bouncesAmount);
+            break;
+            case SwordType.Pierce:
+                newSwordScript.SetupPierce(_piercesAmount);
+            break;
+            case SwordType.Spin:
+                newSwordScript.SetupSpin(true, _maxTravelDistance, _spinDuration, _hitCooldown);
+            break;
+        }
+
         newSwordScript.SetupSword(_finalDirection, _swordGravity, _player);
         _player.AssignNewSword(newSword);
         DotsActive(false);
     }
 
+    #region Aim
     public Vector2 AimDirection()
     {
         Vector2 playerPosition = _player.transform.position;
@@ -84,4 +140,5 @@ public class SwordThrow : Skill
 
         return position;
     }
+    #endregion
 }
